@@ -1,55 +1,225 @@
 /* Custom styles for Quantix Inventory Tracker */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-    --primary-color: #0d6efd;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
-    --info-color: #0dcaf0;
-    --light-color: #f8f9fa;
-    --dark-color: #212529;
+    --primary-color: #336699;        /* Professional blue */
+    --secondary-color: #6b7280;      /* Sophisticated gray */
+    --accent-color: #f59e0b;         /* Warm amber for highlights */
+    --success-color: #059669;        /* Forest green */
+    --warning-color: #f59e0b;        /* Using accent color for warnings */
+    --danger-color: #dc2626;         /* Confident red */
+    --info-color: #0891b2;           /* Teal for info */
+    --light-color: #f9fafb;          /* Clean white-gray */
+    --dark-color: #374151;           /* Rich charcoal */
+    --neutral-light: #f9fafb;        /* Clean background */
+    --neutral-dark: #374151;         /* Text and borders */
+    
+    /* Override Bootstrap's primary color variables */
+    --bs-primary: #336699;
+    --bs-primary-rgb: 51, 102, 153;
+    --bs-primary-bg-subtle: #e7ecf3;
+    --bs-primary-border-subtle: #b3c6d9;
+    --bs-primary-text-emphasis: #1a334d;
 }
 
 /* Layout */
 body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--dark-color);
 }
 
 .navbar-brand {
     font-weight: 600;
     font-size: 1.5rem;
+    color: var(--light-color);
+}
+
+.navbar-brand:hover {
+    color: var(--accent-color);
+}
+
+/* Override Bootstrap primary classes */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover {
+    background-color: #2a5280 !important;
+    border-color: #2a5280 !important;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(51, 102, 153, 0.5) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.navbar-dark.bg-primary, .navbar[data-bs-theme="dark"].bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* Additional color utilities for the new palette */
+.text-secondary {
+    color: var(--secondary-color) !important;
+}
+
+.text-accent {
+    color: var(--accent-color) !important;
+}
+
+.bg-accent {
+    background-color: var(--accent-color) !important;
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    font-weight: 500;
+}
+
+.btn-accent:hover {
+    background-color: #d97706;
+    border-color: #d97706;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563 !important;
+    border-color: #4b5563 !important;
+    color: white;
+}
+
+.border-start-accent {
+    border-left: 4px solid var(--accent-color) !important;
+}
+
+.border-start-secondary {
+    border-left: 4px solid var(--secondary-color) !important;
 }
 
 /* Cards */
 .card {
-    border: none;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid rgba(107, 114, 128, 0.12);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
     border-radius: 0.5rem;
+    background-color: #ffffff;
+    transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.12), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.06);
+    border-color: rgba(107, 114, 128, 0.18);
 }
 
 .card-header {
-    background-color: rgba(var(--bs-primary-rgb), 0.1);
-    border-bottom: 1px solid rgba(var(--bs-primary-rgb), 0.2);
+    background-color: rgba(51, 102, 153, 0.06);
+    border-bottom: 1px solid rgba(107, 114, 128, 0.15);
     font-weight: 600;
+    color: var(--dark-color);
+}
+
+/* Enhanced dashboard cards with accent highlights */
+.dashboard-card.accent-highlight {
+    border-top: 3px solid var(--accent-color);
+}
+
+.dashboard-card.primary-highlight {
+    border-top: 3px solid var(--primary-color);
 }
 
 /* Dashboard cards */
 .dashboard-card {
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid rgba(107, 114, 128, 0.15);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.06);
+    background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
 }
 
 .dashboard-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15), 0 0.375rem 0.75rem rgba(0, 0, 0, 0.08);
+    border-color: rgba(51, 102, 153, 0.2);
 }
 
 .dashboard-card .card-body {
     padding: 1.5rem;
+    position: relative;
+}
+
+.dashboard-card .card-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .dashboard-card .display-6 {
     font-weight: 700;
+    color: var(--dark-color);
+}
+
+/* Specialized card variants */
+.card-elevated {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(107, 114, 128, 0.18);
+}
+
+.card-subtle {
+    background-color: #fdfdfe;
+    border: 1px solid rgba(107, 114, 128, 0.1);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.06);
+}
+
+.stats-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid rgba(51, 102, 153, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(51, 102, 153, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.stats-card .card-body {
+    position: relative;
+    z-index: 1;
 }
 
 /* Status badges */
@@ -60,24 +230,28 @@ body {
 
 /* Low stock indicators */
 .low-stock {
-    background-color: #fff3cd;
-    border-left: 4px solid #ffc107;
+    background-color: #fef3c7;
+    border-left: 4px solid var(--accent-color);
+    color: #92400e;
 }
 
 .out-of-stock {
-    background-color: #f8d7da;
-    border-left: 4px solid #dc3545;
+    background-color: #fef2f2;
+    border-left: 4px solid var(--danger-color);
+    color: #991b1b;
 }
 
 /* Tables */
 .table {
     background-color: white;
+    color: var(--dark-color);
 }
 
 .table th {
     font-weight: 600;
-    background-color: rgba(var(--bs-primary-rgb), 0.1);
-    border-color: rgba(var(--bs-primary-rgb), 0.2);
+    background-color: rgba(107, 114, 128, 0.08);
+    border-color: rgba(107, 114, 128, 0.15);
+    color: var(--dark-color);
 }
 
 /* Buttons */
@@ -94,12 +268,13 @@ body {
 /* Forms */
 .form-control, .form-select {
     border-radius: 0.375rem;
-    border: 1px solid #ced4da;
+    border: 1px solid rgba(107, 114, 128, 0.3);
+    color: var(--dark-color);
 }
 
 .form-control:focus, .form-select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(51, 102, 153, 0.25);
 }
 
 /* Select2 customization */
