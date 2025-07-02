@@ -7,6 +7,23 @@
 
 A comprehensive, web-based inventory management system designed for small to medium businesses. Built with modern PHP, MySQL, and responsive frontend technologies.
 
+> Need Quantix but don't have an IT team? Look through our [Professional Help] (#-professional-services) section.
+
+## 📑 Table of Contents
+
+- [✨ Key Features](#-key-features)
+- [🚀 Quick Start](#-quick-start)  
+- [📋 Requirements](#-requirements)
+- [🔧 Installation](#-installation)
+- [📁 Project Structure](#-project-structure)
+- [🎯 Usage Guide](#-usage-guide)
+- [🔐 Security Features](#-security-features)
+- [🎨 Customization](#-customization)
+- [🐛 Troubleshooting](#-troubleshooting)
+- [💼 Professional Services](#-professional-services)
+- [📞 Support](#-support)
+- [🤝 Contributing](#-contributing)
+
 ---
 
 ## ✨ **Key Features**
@@ -281,6 +298,12 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 **Need help with deployment, customization, or training?** We offer professional services for organizations that want Quantix installed and configured by experts.
 
+### Quick Links
+- [🛠️ Deployment & Setup](#️-deployment--setup-services)
+- [🎨 Customization Services](#-customization-services)  
+- [📚 Training & Support](#-training--support)
+- [📞 Get Professional Help](#-get-professional-help)
+
 ### 🛠️ **Deployment & Setup Services**
 - **Complete Installation** - Full server setup, database configuration, and security hardening
 - **Custom Configuration** - Tailored to your business processes and requirements
@@ -304,10 +327,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 Ready to get Quantix professionally deployed for your organization?
 
 **Contact us for a free consultation:**
-- 📧 **Email:** [your-email@domain.com](mailto:your-email@domain.com)
-- 💬 **WhatsApp:** [+1-XXX-XXX-XXXX](https://wa.me/1XXXXXXXXXX)
-- 🌐 **Website:** [your-website.com](https://your-website.com)
-- 📅 **Schedule a Call:** [Book a 15-minute consultation](https://calendly.com/your-handle)
+- 📧 **Email:** [naim@amz.com.my](mailto:naim@amz.com.my)
+- 💬 **WhatsApp:** [+6011-2088 4110](https://wa.me/601120884110)
+- 🌐 **Website:** [amz.com.my](https://amz.com.my)
 
 **Typical Deployment Timeline:** 1-3 business days  
 **Pricing:** Starting from $XXX for basic setup  
@@ -315,7 +337,9 @@ Ready to get Quantix professionally deployed for your organization?
 
 ---
 
-*We serve businesses across [Your Country/Region] with remote deployment and training services. References and case studies available upon request.*
+*We serve businesses worldwide with remote deployment and training services.*
+
+[⬆️ Back to top](#quantix---inventory-management-system)
 
 ## 🏆 Credits
 
@@ -328,4 +352,4 @@ Built with modern web technologies and best practices:
 
 ---
 
-**Quantix Inventory Management System** - Simple, powerful, and reliable inventory tracking for your business needs.
+**Quantix Inventory Management System** - Simple, powerful, and reliable inventory tracking for your business needs. | Developed by: Naim Zulkipli, [AMZ IT Solutions] (https://amz.com.my), Kuala Lumpur.
