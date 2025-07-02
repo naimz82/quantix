@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $itemId = (int)$_POST['item_id'];
     $quantity = (int)$_POST['quantity'];
+    $unitPrice = (float)$_POST['unit_price'] ?? 0.00;
     $supplierId = !empty($_POST['supplier_id']) ? (int)$_POST['supplier_id'] : null;
     $date = sanitizeInput($_POST['date']);
     $remarks = sanitizeInput($_POST['remarks']);
@@ -32,15 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Quantity must be greater than 0.';
     }
     
+    if ($unitPrice < 0) {
+        $errors[] = 'Unit price cannot be negative.';
+    }
+    
     if (empty($date)) {
         $errors[] = 'Please select a date.';
     }
     
     if (empty($errors)) {
-        $result = addStockIn($itemId, $quantity, $supplierId, $date, $remarks);
+        $result = addStockIn($itemId, $quantity, $supplierId, $date, $remarks, $unitPrice);
         
         if ($result) {
-            setAlert("Successfully added {$quantity} units to inventory!", 'success');
+            $totalCost = $quantity * $unitPrice;
+            setAlert("Successfully added {$quantity} units to inventory!" . 
+                     ($totalCost > 0 ? " Total cost: $" . number_format($totalCost, 2) : ""), 'success');
             header('Location: stock-in.php');
             exit();
         } else {
@@ -135,7 +142,7 @@ include_once '../includes/header.php';
                     </div>
                     
                     <div class="row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="quantity" class="form-label">Quantity *</label>
                             <div class="input-group">
                                 <input type="number" class="form-control numeric-input" id="quantity" name="quantity" 
@@ -147,7 +154,17 @@ include_once '../includes/header.php';
                             </div>
                         </div>
                         
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
+                            <label for="unit_price" class="form-label">Unit Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control numeric-input" id="unit_price" name="unit_price" 
+                                       min="0" step="0.01" value="0.00">
+                            </div>
+                            <small class="form-text text-muted">Price per unit from supplier</small>
+                        </div>
+                        
+                        <div class="col-md-3 mb-3">
                             <label for="date" class="form-label">Date *</label>
                             <input type="date" class="form-control" id="date" name="date" 
                                    value="<?php echo date('Y-m-d'); ?>" required>
@@ -156,7 +173,16 @@ include_once '../includes/header.php';
                             </div>
                         </div>
                         
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Total Cost</label>
+                            <div class="form-control-plaintext fw-bold text-success" id="total-cost">
+                                $0.00
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label">New Stock Level</label>
                             <div class="form-control-plaintext fw-bold" id="new-stock">
                                 Select item first
@@ -244,6 +270,8 @@ include_once '../includes/header.php';
                                 <th>Date</th>
                                 <th>Item</th>
                                 <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Cost</th>
                                 <th>Supplier</th>
                                 <th>Remarks</th>
                                 <th>Added</th>
@@ -260,10 +288,24 @@ include_once '../includes/header.php';
                                     </span>
                                     <?php echo htmlspecialchars($entry['unit']); ?>
                                 </td>
+                                <td>
+                                    <?php if ($entry['unit_price'] > 0): ?>
+                                        <span class="text-info">$<?php echo number_format($entry['unit_price'], 2); ?></span>
+                                    <?php else: ?>
+                                        <span class="text-muted">-</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($entry['total_cost'] > 0): ?>
+                                        <span class="text-success fw-bold">$<?php echo number_format($entry['total_cost'], 2); ?></span>
+                                    <?php else: ?>
+                                        <span class="text-muted">-</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?php echo htmlspecialchars($entry['supplier_name'] ?? 'N/A'); ?></td>
                                 <td>
                                     <?php if (!empty($entry['remarks'])): ?>
-                                        <span class="text-truncate" style="max-width: 150px;" 
+                                        <span class="text-truncate" style="max-width: 100px;" 
                                               title="<?php echo htmlspecialchars($entry['remarks']); ?>">
                                             <?php echo htmlspecialchars($entry['remarks']); ?>
                                         </span>
@@ -324,7 +366,13 @@ $(document).ready(function() {
     });
     
     // Update new stock level when quantity changes
-    $("#quantity").on("input", updateNewStockLevel);
+    $("#quantity").on("input", function() {
+        updateNewStockLevel();
+        updateTotalCost();
+    });
+    
+    // Update total cost when unit price changes
+    $("#unit_price").on("input", updateTotalCost);
     
     function updateNewStockLevel() {
         var selectedOption = $("#item_id").find("option:selected");
@@ -348,6 +396,20 @@ $(document).ready(function() {
             }
         } else {
             $("#new-stock").text("Select item first");
+        }
+    }
+    
+    function updateTotalCost() {
+        var quantity = parseInt($("#quantity").val()) || 0;
+        var unitPrice = parseFloat($("#unit_price").val()) || 0;
+        var totalCost = quantity * unitPrice;
+        
+        if (totalCost > 0) {
+            $("#total-cost").html(
+                "<span class=\"text-success\">$" + totalCost.toFixed(2) + "</span>"
+            );
+        } else {
+            $("#total-cost").text("$0.00");
         }
     }
     ' . 

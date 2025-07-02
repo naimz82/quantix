@@ -19,7 +19,9 @@ CREATE TABLE items (
   unit VARCHAR(50),
   quantity INT DEFAULT 0,
   low_stock_threshold INT DEFAULT 5,
+  status ENUM('active', 'inactive') DEFAULT 'active',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
@@ -33,6 +35,8 @@ CREATE TABLE stock_in (
   id INT AUTO_INCREMENT PRIMARY KEY,
   item_id INT,
   quantity INT,
+  unit_price DECIMAL(10,2) DEFAULT 0.00,
+  total_cost DECIMAL(12,2) GENERATED ALWAYS AS (quantity * unit_price) STORED,
   supplier_id INT,
   date DATE,
   remarks TEXT,

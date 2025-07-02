@@ -141,7 +141,7 @@ function updateItemQuantity($itemId, $quantity) {
     return updateRecord('items', ['quantity' => $quantity], ['id' => $itemId]);
 }
 
-function addStockIn($itemId, $quantity, $supplierId, $date, $remarks = '') {
+function addStockIn($itemId, $quantity, $supplierId, $date, $remarks = '', $unitPrice = 0.00) {
     $db = getDB();
     
     try {
@@ -151,6 +151,7 @@ function addStockIn($itemId, $quantity, $supplierId, $date, $remarks = '') {
         $stockInId = insertRecord('stock_in', [
             'item_id' => $itemId,
             'quantity' => $quantity,
+            'unit_price' => $unitPrice,
             'supplier_id' => $supplierId,
             'date' => $date,
             'remarks' => $remarks

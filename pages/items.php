@@ -18,7 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoryId = !empty($_POST['category_id']) ? (int)$_POST['category_id'] : null;
     $unit = sanitizeInput($_POST['unit']);
     $quantity = (int)$_POST['quantity'];
+    $price = (float)$_POST['price'];
     $lowStockThreshold = (int)$_POST['low_stock_threshold'];
+    $status = sanitizeInput($_POST['status'] ?? 'active');
     
     if ($action === 'add') {
         $result = insertRecord('items', [
@@ -26,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'category_id' => $categoryId,
             'unit' => $unit,
             'quantity' => $quantity,
-            'low_stock_threshold' => $lowStockThreshold
+            'price' => $price,
+            'low_stock_threshold' => $lowStockThreshold,
+            'status' => $status
         ]);
         
         if ($result) {
@@ -45,7 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'category_id' => $categoryId,
             'unit' => $unit,
             'quantity' => $quantity,
-            'low_stock_threshold' => $lowStockThreshold
+            'price' => $price,
+            'low_stock_threshold' => $lowStockThreshold,
+            'status' => $status
         ], ['id' => $itemId]);
         
         if ($result) {
@@ -205,8 +211,9 @@ include_once '../includes/header.php';
                         <th>Name</th>
                         <th>Category</th>
                         <th>Unit</th>
+                        <th>Unit Price</th>
                         <th>Current Stock</th>
-                        <th>Low Stock Threshold</th>
+                        <th>Total Value</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -221,9 +228,15 @@ include_once '../includes/header.php';
                         <td><?php echo htmlspecialchars($item['category_name'] ?? 'Uncategorized'); ?></td>
                         <td><?php echo htmlspecialchars($item['unit']); ?></td>
                         <td>
-                            <span class="fw-bold"><?php echo number_format($item['quantity']); ?></span>
+                            <span class="fw-bold text-primary">$<?php echo number_format($item['price'] ?? 0, 2); ?></span>
                         </td>
-                        <td><?php echo number_format($item['low_stock_threshold']); ?></td>
+                        <td>
+                            <span class="fw-bold"><?php echo number_format($item['quantity']); ?></span>
+                            <small class="text-muted"><?php echo htmlspecialchars($item['unit']); ?></small>
+                        </td>
+                        <td>
+                            <span class="fw-bold text-success">$<?php echo number_format(($item['quantity'] ?? 0) * ($item['price'] ?? 0), 2); ?></span>
+                        </td>
                         <td>
                             <?php if ($item['stock_status'] === 'out_of_stock'): ?>
                                 <span class="badge bg-danger">Out of Stock</span>
@@ -232,6 +245,7 @@ include_once '../includes/header.php';
                             <?php else: ?>
                                 <span class="badge bg-success">In Stock</span>
                             <?php endif; ?>
+                        </td>
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
@@ -301,7 +315,7 @@ include_once '../includes/header.php';
                     </div>
                     
                     <div class="row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="unit" class="form-label">Unit *</label>
                             <input type="text" class="form-control" id="unit" name="unit" 
                                    value="<?php echo htmlspecialchars($currentItem['unit'] ?? ''); ?>" 
@@ -311,7 +325,20 @@ include_once '../includes/header.php';
                             </div>
                         </div>
                         
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
+                            <label for="price" class="form-label">Unit Price *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="price" name="price" 
+                                       value="<?php echo number_format($currentItem['price'] ?? 0, 2, '.', ''); ?>" 
+                                       min="0" step="0.01" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter the unit price.
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 mb-3">
                             <label for="quantity" class="form-label">Current Quantity *</label>
                             <input type="number" class="form-control numeric-input" id="quantity" name="quantity" 
                                    value="<?php echo $currentItem['quantity'] ?? 0; ?>" 
@@ -321,11 +348,37 @@ include_once '../includes/header.php';
                             </div>
                         </div>
                         
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="low_stock_threshold" class="form-label">Low Stock Threshold *</label>
                             <input type="number" class="form-control numeric-input" id="low_stock_threshold" name="low_stock_threshold" 
                                    value="<?php echo $currentItem['low_stock_threshold'] ?? 5; ?>" 
                                    min="0" required>
+                            <div class="invalid-feedback">
+                                Please set the low stock threshold.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label">Status *</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="active" <?php echo ($currentItem['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>>Active</option>
+                                <option value="inactive" <?php echo ($currentItem['status'] ?? '') === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a status.
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Total Value</label>
+                            <div class="form-control-plaintext fw-bold" id="total-value">
+                                $0.00
+                            </div>
+                            <small class="text-muted">Quantity × Unit Price</small>
+                        </div>
+                    </div>
                             <div class="invalid-feedback">
                                 Please set the low stock threshold.
                             </div>
@@ -389,10 +442,22 @@ include_once '../includes/header.php';
                                 <td><?php echo htmlspecialchars($currentItem['unit']); ?></td>
                             </tr>
                             <tr>
+                                <th>Unit Price:</th>
+                                <td>
+                                    <span class="fw-bold text-primary fs-5">$<?php echo number_format($currentItem['price'] ?? 0, 2); ?></span>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Current Stock:</th>
                                 <td>
                                     <span class="fw-bold fs-5"><?php echo number_format($currentItem['quantity']); ?></span>
                                     <?php echo htmlspecialchars($currentItem['unit']); ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Total Value:</th>
+                                <td>
+                                    <span class="fw-bold text-success fs-4">$<?php echo number_format(($currentItem['quantity'] ?? 0) * ($currentItem['price'] ?? 0), 2); ?></span>
                                 </td>
                             </tr>
                         </table>
@@ -444,5 +509,40 @@ include_once '../includes/header.php';
 </div>
 
 <?php endif; ?>
+
+<?php 
+// Custom JavaScript for item forms
+if (in_array($action, ['add', 'edit'])) {
+    $customScript = '
+    $(document).ready(function() {
+        // Calculate total value when quantity or price changes
+        function updateTotalValue() {
+            var quantity = parseFloat($("#quantity").val()) || 0;
+            var price = parseFloat($("#price").val()) || 0;
+            var threshold = parseFloat($("#low_stock_threshold").val()) || 0;
+            var totalValue = quantity * price;
+            
+            $("#total-value").text("$" + totalValue.toFixed(2));
+            
+            // Update stock status preview
+            var statusBadge = $("#stock-status");
+            if (quantity === 0) {
+                statusBadge.removeClass().addClass("badge bg-danger").text("Out of Stock");
+            } else if (quantity <= threshold) {
+                statusBadge.removeClass().addClass("badge bg-warning").text("Low Stock");
+            } else {
+                statusBadge.removeClass().addClass("badge bg-success").text("In Stock");
+            }
+        }
+        
+        // Bind events
+        $("#quantity, #price, #low_stock_threshold").on("input", updateTotalValue);
+        
+        // Initial calculation
+        updateTotalValue();
+    });
+    ';
+}
+?>
 
 <?php include_once '../includes/footer.php'; ?>

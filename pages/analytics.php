@@ -21,11 +21,31 @@ $analytics = [
 function getInventoryValue() {
     return fetchOne("
         SELECT 
-            SUM(quantity * price) as total_value,
-            COUNT(*) as total_items,
-            AVG(quantity * price) as avg_item_value
-        FROM items 
-        WHERE status = 'active'
+            SUM(inventory_value.total_value) as total_value,
+            COUNT(inventory_value.item_id) as total_items,
+            AVG(inventory_value.total_value) as avg_item_value
+        FROM (
+            SELECT 
+                i.id as item_id,
+                i.quantity * COALESCE(latest_prices.avg_price, 0) as total_value
+            FROM items i
+            LEFT JOIN (
+                SELECT 
+                    si.item_id,
+                    AVG(si.unit_price) as avg_price
+                FROM stock_in si
+                INNER JOIN (
+                    SELECT item_id, MAX(date) as latest_date
+                    FROM stock_in 
+                    WHERE unit_price > 0
+                    GROUP BY item_id
+                ) latest ON si.item_id = latest.item_id 
+                    AND si.date >= DATE_SUB(latest.latest_date, INTERVAL 30 DAY)
+                WHERE si.unit_price > 0
+                GROUP BY si.item_id
+            ) latest_prices ON i.id = latest_prices.item_id
+            WHERE i.status = 'active'
+        ) inventory_value
     ");
 }
 
@@ -61,11 +81,26 @@ function getCategoryPerformance() {
             c.name as category,
             COUNT(i.id) as item_count,
             SUM(i.quantity) as total_stock,
-            SUM(i.quantity * i.price) as total_value,
+            SUM(i.quantity * COALESCE(latest_prices.avg_price, 0)) as total_value,
             AVG(i.quantity) as avg_stock_per_item,
             COUNT(CASE WHEN i.quantity <= i.low_stock_threshold THEN 1 END) as low_stock_items
         FROM categories c
         LEFT JOIN items i ON c.id = i.category_id AND i.status = 'active'
+        LEFT JOIN (
+            SELECT 
+                si.item_id,
+                AVG(si.unit_price) as avg_price
+            FROM stock_in si
+            INNER JOIN (
+                SELECT item_id, MAX(date) as latest_date
+                FROM stock_in 
+                WHERE unit_price > 0
+                GROUP BY item_id
+            ) latest ON si.item_id = latest.item_id 
+                AND si.date >= DATE_SUB(latest.latest_date, INTERVAL 30 DAY)
+            WHERE si.unit_price > 0
+            GROUP BY si.item_id
+        ) latest_prices ON i.id = latest_prices.item_id
         GROUP BY c.id, c.name
         HAVING item_count > 0
         ORDER BY total_value DESC
@@ -76,18 +111,19 @@ function getSupplierPerformance() {
     return fetchAll("
         SELECT 
             s.name as supplier,
-            COUNT(DISTINCT i.id) as items_supplied,
+            COUNT(DISTINCT si.item_id) as items_supplied,
             COUNT(si.id) as deliveries,
             SUM(si.quantity) as total_delivered,
             AVG(si.quantity) as avg_delivery_size,
-            MAX(si.date) as last_delivery
+            MAX(si.date) as last_delivery,
+            SUM(si.total_cost) as total_value_delivered,
+            AVG(si.unit_price) as avg_unit_price
         FROM suppliers s
-        LEFT JOIN items i ON s.id = i.supplier_id
-        LEFT JOIN stock_in si ON i.id = si.item_id
+        JOIN stock_in si ON s.id = si.supplier_id
         WHERE si.date >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
         GROUP BY s.id, s.name
         HAVING deliveries > 0
-        ORDER BY total_delivered DESC
+        ORDER BY total_value_delivered DESC
     ");
 }
 
@@ -124,10 +160,29 @@ function getStockTurnoverRate() {
 function getCriticalInsights() {
     $insights = [];
     
-    // Dead stock (no movement in 6 months)
+    // Dead stock (no movement in 6 months) with estimated value
     $deadStock = fetchAll("
-        SELECT i.name, i.quantity, i.price, (i.quantity * i.price) as value
+        SELECT 
+            i.name, 
+            i.quantity, 
+            COALESCE(latest_prices.avg_price, 0) as estimated_price,
+            (i.quantity * COALESCE(latest_prices.avg_price, 0)) as estimated_value
         FROM items i
+        LEFT JOIN (
+            SELECT 
+                si.item_id,
+                AVG(si.unit_price) as avg_price
+            FROM stock_in si
+            INNER JOIN (
+                SELECT item_id, MAX(date) as latest_date
+                FROM stock_in 
+                WHERE unit_price > 0
+                GROUP BY item_id
+            ) latest ON si.item_id = latest.item_id 
+                AND si.date >= DATE_SUB(latest.latest_date, INTERVAL 30 DAY)
+            WHERE si.unit_price > 0
+            GROUP BY si.item_id
+        ) latest_prices ON i.id = latest_prices.item_id
         WHERE i.status = 'active'
         AND i.id NOT IN (
             SELECT DISTINCT item_id 
@@ -135,7 +190,7 @@ function getCriticalInsights() {
             WHERE date >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
         )
         AND i.quantity > 0
-        ORDER BY value DESC
+        ORDER BY estimated_value DESC
         LIMIT 10
     ");
     
