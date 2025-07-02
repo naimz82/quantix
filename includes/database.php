@@ -34,10 +34,14 @@ class Database {
     }
     
     // Prevent cloning
-    private function __clone() {}
+    public function __clone() {
+        throw new Exception("Cannot clone singleton Database instance");
+    }
     
     // Prevent unserialization
-    private function __wakeup() {}
+    public function __wakeup() {
+        throw new Exception("Cannot unserialize singleton Database instance");
+    }
 }
 
 // Database helper functions
