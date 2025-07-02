@@ -7,8 +7,8 @@
 
 A comprehensive, web-based inventory management system designed for small to medium businesses. Built with modern PHP, MySQL, and responsive frontend technologies.
 
-> [!NOTE]
-### Need Quantix but don't have an IT team? Jump to the [Professional Services](#-professional-services) section below.
+> [!NOTE]  
+Need Quantix but don't have an IT team? Jump to the [Professional Services](#-professional-services) section below.
 
 ## 📑 Table of Contents
 
