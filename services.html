@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Services - Quantix Inventory Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+        }
+        .bg-primary { background-color: var(--primary-color) !important; }
+        .text-primary { color: var(--primary-color) !important; }
+        .btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .contact-section {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#"><i class="fas fa-boxes me-2"></i>Quantix</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="https://github.com/yourusername/quantix">
+                <i class="fab fa-github me-1"></i>GitHub
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">Professional Quantix Deployment Services</h1>
+                <p class="lead mb-4">Get Quantix professionally installed, configured, and customized for your organization. No technical expertise required.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="#contact" class="btn btn-light btn-lg">
+                        <i class="fas fa-calendar-alt me-2"></i>Schedule Consultation
+                    </a>
+                    <a href="#packages" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-info-circle me-2"></i>View Packages
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fas fa-cogs fa-8x opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="fw-bold">Why Choose Professional Deployment?</h2>
+                <p class="text-muted">Save time, avoid headaches, and ensure a secure, optimized installation</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-rocket fa-2x"></i>
+                    </div>
+                    <h5>Fast Deployment</h5>
+                    <p class="text-muted">Professional installation in 1-3 business days instead of weeks of trial and error.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-shield-alt fa-2x"></i>
+                    </div>
+                    <h5>Secure Configuration</h5>
+                    <p class="text-muted">Industry-standard security practices, SSL certificates, and automated backups.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-graduation-cap fa-2x"></i>
+                    </div>
+                    <h5>Staff Training</h5>
+                    <p class="text-muted">Comprehensive training ensures your team is productive from day one.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Packages Section -->
+<section id="packages" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="fw-bold">Service Packages</h2>
+                <p class="text-muted">Choose the package that best fits your organization's needs</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <!-- Starter Package -->
+            <div class="col-lg-4">
+                <div class="card service-card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="fw-bold mb-0">Starter</h4>
+                        <p class="mb-0">Perfect for small businesses</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <span class="display-4 fw-bold text-primary">$XXX</span>
+                            <p class="text-muted">1-2 Business Days</p>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Server setup & optimization</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Quantix installation</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic security hardening</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>SSL certificate</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Data import (500 items)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>2-hour training</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>30-day support</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent text-center">
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Package -->
+            <div class="col-lg-4">
+                <div class="card service-card border-primary border-2">
+                    <div class="card-header bg-primary text-white text-center position-relative">
+                        <h4 class="fw-bold mb-0">Business</h4>
+                        <p class="mb-0">Most Popular Choice</p>
+                        <span class="badge bg-warning text-dark position-absolute top-0 start-50 translate-middle">POPULAR</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <span class="display-4 fw-bold text-primary">$XXX</span>
+                            <p class="text-muted">2-3 Business Days</p>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Starter</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom branding</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced security</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Automated backups</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited data import</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>4-hour training</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>60-day priority support</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent text-center">
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enterprise Package -->
+            <div class="col-lg-4">
+                <div class="card service-card border-0 shadow-sm">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4 class="fw-bold mb-0">Enterprise</h4>
+                        <p class="mb-0">For large organizations</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <span class="display-4 fw-bold text-primary">$XXX</span>
+                            <p class="text-muted">3-5 Business Days</p>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Business</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>High-availability setup</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom development (20h)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>System integration</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multi-environment</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>On-site training (10 users)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>90-day comprehensive support</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent text-center">
+                        <a href="#contact" class="btn btn-dark">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="fw-bold">Ready to Get Started?</h2>
+                <p class="text-muted">Schedule a free consultation or request a custom quote</p>
+            </div>
+        </div>
+        
+        <div class="row g-5">
+            <!-- Contact Information -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">Get in Touch</h4>
+                        
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Free Consultation</h6>
+                                <a href="https://calendly.com/your-handle" class="text-primary text-decoration-none">Schedule 30-minute call</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Email</h6>
+                                <a href="mailto:services@your-domain.com" class="text-primary text-decoration-none">services@your-domain.com</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">WhatsApp</h6>
+                                <a href="https://wa.me/1XXXXXXXXXX" class="text-success text-decoration-none">+1-XXX-XXX-XXXX</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Phone</h6>
+                                <span class="text-muted">+1-XXX-XXX-XXXX</span>
+                                <small class="d-block text-muted">Business hours: 9 AM - 6 PM EST</small>
+                            </div>
+                        </div>
+
+                        <div class="bg-light p-3 rounded">
+                            <h6 class="fw-bold mb-2">Typical Response Times:</h6>
+                            <small class="text-muted">
+                                📧 Email: Within 24 hours<br>
+                                💬 WhatsApp: Within 2 hours<br>
+                                📞 Phone: Immediate (business hours)
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Quote Form -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">Request Quick Quote</h4>
+                        
+                        <form id="quoteForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Company Name *</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Your Name *</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Package Interest</label>
+                                    <select class="form-select">
+                                        <option>Starter Package</option>
+                                        <option selected>Business Package</option>
+                                        <option>Enterprise Package</option>
+                                        <option>Custom Solution</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Number of Users</label>
+                                    <select class="form-select">
+                                        <option>1-5 users</option>
+                                        <option>6-15 users</option>
+                                        <option>16-50 users</option>
+                                        <option>50+ users</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Additional Requirements</label>
+                                    <textarea class="form-control" rows="3" placeholder="Tell us about your specific needs, current system, timeline, etc."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                                        <i class="fas fa-paper-plane me-2"></i>Request Quote
+                                    </button>
+                                    <small class="text-muted d-block text-center mt-2">
+                                        We'll respond within 24 hours with a detailed proposal
+                                    </small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <p class="mb-0">&copy; 2025 Quantix Professional Services. All rights reserved.</p>
+            </div>
+            <div class="col-lg-6 text-lg-end">
+                <a href="https://github.com/yourusername/quantix" class="text-light text-decoration-none me-3">
+                    <i class="fab fa-github me-1"></i>View on GitHub
+                </a>
+                <a href="mailto:services@your-domain.com" class="text-light text-decoration-none">
+                    <i class="fas fa-envelope me-1"></i>Contact
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('quoteForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for your interest! In a real implementation, this would send your information to our team. For now, please email us directly at services@your-domain.com');
+});
+</script>
+
+</body>
+</html>
