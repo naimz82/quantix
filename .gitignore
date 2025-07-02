@@ -1,0 +1,157 @@
+# Quantix Inventory Management System - Git Ignore File
+
+# Configuration files (contain sensitive data)
+includes/config.php
+config.php
+
+# Docker environment files (for containerized deployments)
+docker.env
+
+# Database files
+*.sql.backup
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+logs/
+*.log
+error.log
+access.log
+debug.log
+
+# Cache files
+cache/
+tmp/
+temp/
+.cache/
+
+# Upload directories
+uploads/
+files/
+attachments/
+documents/
+
+# Backup files
+backups/
+*.backup
+*.bak
+*~
+*.swp
+*.swo
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.atom/
+.brackets.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Composer dependencies (if using Composer)
+vendor/
+composer.lock
+
+# Node.js dependencies (if using npm/yarn)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build and distribution files
+dist/
+build/
+public/build/
+
+# Testing files
+phpunit.xml
+.phpunit.result.cache
+coverage/
+test-results/
+test-output/
+
+# Development files
+dev/
+development/
+.dev/
+
+# Session files
+sessions/
+*.sess
+
+# Temporary PHP files
+*.tmp.php
+*.temp.php
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Documentation build files
+docs/_build/
+site/
+
+# Lock files for various tools
+*.lock
+
+# Local configuration overrides
+local.php
+local.ini
+.local
+
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# Database exports/dumps
+*.sql.gz
+dump.sql
+backup.sql
+
+# Media files (large files that shouldn't be in repo)
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+
+# Large image files
+*.psd
+*.ai
+*.eps
+
+# Deployment scripts with sensitive info
+deploy-production.sh
+deploy-staging.sh
+.deployment
+
+# Error and access logs from web server
+apache_error.log
+nginx_error.log
+
+# Runtime files
+*.pid
+*.sock
+
+# Miscellaneous
+.htaccess.backup
+robots.txt.backup
