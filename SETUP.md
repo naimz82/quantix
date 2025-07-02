@@ -2,7 +2,23 @@
 
 This guide will help you set up the Quantix Inventory Management System on your server.
 
-## Quick Setup
+## 🚀 Localhost Quick Start
+
+For local development (XAMPP/WAMP/MAMP), follow these simple steps:
+
+```bash
+# 1. Create required directories
+mkdir -p uploads logs backups && chmod 755 uploads logs backups
+
+# 2. Open your browser and run the installer
+# http://localhost/quantix/install.php
+```
+
+**That's it!** The installer will handle everything else automatically.
+
+---
+
+## Full Setup Guide
 
 ### 1. Clone the Repository
 
@@ -11,7 +27,19 @@ git clone https://github.com/yourusername/quantix.git
 cd quantix
 ```
 
-### 2. Configure the Application
+### 2. Create Required Directories
+
+Create the necessary directories for uploads, logs, and backups:
+
+```bash
+# Create required directories
+mkdir -p uploads logs backups
+
+# Set appropriate permissions
+chmod 755 uploads logs backups
+```
+
+### 3. Configure the Application
 
 Copy the template configuration files and customize them:
 
@@ -23,18 +51,16 @@ cp includes/config.template.php includes/config.php
 nano includes/config.php
 ```
 
-### 3. Set Up the Database
+### 4. Set Up the Database (Optional)
 
-Create a MySQL database and user:
+The web installer will create the database automatically, but you can create it manually if preferred:
 
 ```sql
 CREATE DATABASE quantix_inventory;
-CREATE USER 'quantix_user'@'localhost' IDENTIFIED BY 'your_secure_password';
-GRANT ALL PRIVILEGES ON quantix_inventory.* TO 'quantix_user'@'localhost';
-FLUSH PRIVILEGES;
+# Note: install.php will handle this step for you
 ```
 
-### 4. Run the Installation
+### 5. Run the Installation
 
 Navigate to your application URL and run the installer:
 
@@ -42,16 +68,18 @@ Navigate to your application URL and run the installer:
 http://yourdomain.com/quantix/install.php
 ```
 
-Or use the command-line installer:
+The installer will:
+- Create the database (if it doesn't exist)
+- Set up all database tables
+- Create sample categories and suppliers
+- Set up the admin user account
+
+### 6. Complete Setup (Optional)
+
+The installer handles most setup automatically. For manual file permissions (if needed):
 
 ```bash
-php install.php
-```
-
-### 5. Set File Permissions
-
-```bash
-chmod 755 uploads/ logs/ backups/
+# Only run if you encounter permission issues
 chmod 644 *.php
 find . -name "*.php" -exec chmod 644 {} \;
 ```
