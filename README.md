@@ -3,11 +3,22 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D7.4-blue.svg)](https://php.net)
 [![MySQL Version](https://img.shields.io/badge/MySQL-%3E%3D5.7-orange.svg)](https://mysql.com)
-[![CI/CD](https://github.com/yourusername/quantix/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/yourusername/quantix/actions)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)](https://getbootstrap.com)
 
 A comprehensive, web-based inventory management system designed for small to medium businesses. Built with modern PHP, MySQL, and responsive frontend technologies.
 
-![Quantix Dashboard](https://via.placeholder.com/800x400/007bff/ffffff?text=Quantix+Dashboard+Screenshot)
+---
+
+## ✨ **Key Features**
+
+🏠 **Dashboard** - Real-time inventory overview with charts and analytics  
+📦 **Items Management** - Complete CRUD operations with categories and suppliers  
+📊 **Stock Tracking** - In/Out movements with full audit trail  
+📈 **Analytics** - Advanced reporting and performance metrics  
+📋 **Reports** - Export to CSV/JSON and professional print layouts  
+👥 **User Management** - Role-based access control (Admin/Staff)  
+🔒 **Security** - CSRF protection, input validation, session management  
+📱 **Responsive** - Works perfectly on desktop, tablet, and mobile
 
 ## 🚀 Quick Start
 
@@ -255,6 +266,16 @@ For issues, questions, or feature requests:
 ## 📄 License
 
 This project is open source. Feel free to modify and adapt for your needs.
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+**Help us improve the documentation:**
+- Add screenshots of your Quantix installation
+- Submit feature demonstrations
+- Share deployment configurations
+- Improve setup guides
 
 ## 🏆 Credits
 

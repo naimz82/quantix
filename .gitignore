@@ -134,10 +134,14 @@ backup.sql
 *.flv
 *.webm
 
-# Large image files
+# Large image files (keep screenshots under 500KB)
 *.psd
 *.ai
 *.eps
+
+# Very large screenshots (over 1MB)
+docs/screenshots/*-large.png
+docs/screenshots/*-hd.png
 
 # Deployment scripts with sensitive info
 deploy-production.sh
