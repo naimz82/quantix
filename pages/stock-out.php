@@ -287,7 +287,7 @@ include_once '../includes/header.php';
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-hover">
+                    <table class="table table-sm table-hover table-log">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -332,141 +332,148 @@ include_once '../includes/header.php';
 </div>
 <?php endif; ?>
 
-<script>
+<?php 
+// Custom JavaScript to run after jQuery is loaded
+$customScript = '
 $(document).ready(function() {
     // Handle purpose selection
-    $('#purpose_select').on('change', function() {
+    $("#purpose_select").on("change", function() {
         var value = $(this).val();
         if (value) {
-            $('#purpose').val(value).removeClass('d-none');
+            $("#purpose").val(value).removeClass("d-none");
         }
     });
     
-    $('#custom_purpose_btn').on('click', function() {
-        $('#purpose').removeClass('d-none').focus();
-        $('#purpose_select').val('');
+    $("#custom_purpose_btn").on("click", function() {
+        $("#purpose").removeClass("d-none").focus();
+        $("#purpose_select").val("");
     });
     
     // Update item information when item is selected
-    $('#item_id').on('change', function() {
-        var selectedOption = $(this).find('option:selected');
+    $("#item_id").on("change", function() {
+        var selectedOption = $(this).find("option:selected");
         var itemId = $(this).val();
         
         if (itemId) {
-            var unit = selectedOption.data('unit');
-            var currentStock = selectedOption.data('current');
-            var threshold = selectedOption.data('threshold');
-            var itemName = selectedOption.text().split(' - Available:')[0];
+            var unit = selectedOption.data("unit");
+            var currentStock = selectedOption.data("current");
+            var threshold = selectedOption.data("threshold");
+            var itemName = selectedOption.text().split(" - Available:")[0];
             
             // Update unit display
-            $('#unit-display').text(unit);
+            $("#unit-display").text(unit);
             
             // Update item info panel
-            $('#item-info').html(`
-                <div class="text-start">
-                    <h6 class="mb-2">${itemName}</h6>
-                    <p class="mb-1"><strong>Available Stock:</strong> ${currentStock.toLocaleString()} ${unit}</p>
-                    <p class="mb-1"><strong>Low Stock Threshold:</strong> ${threshold.toLocaleString()} ${unit}</p>
-                    <p class="mb-0"><strong>Unit:</strong> ${unit}</p>
-                </div>
-            `);
+            $("#item-info").html(
+                "<div class=\"text-start\">" +
+                    "<h6 class=\"mb-2\">" + itemName + "</h6>" +
+                    "<p class=\"mb-1\"><strong>Available Stock:</strong> " + currentStock.toLocaleString() + " " + unit + "</p>" +
+                    "<p class=\"mb-1\"><strong>Low Stock Threshold:</strong> " + threshold.toLocaleString() + " " + unit + "</p>" +
+                    "<p class=\"mb-0\"><strong>Unit:</strong> " + unit + "</p>" +
+                "</div>"
+            );
             
             // Set max quantity to current stock
-            $('#quantity').attr('max', currentStock);
+            $("#quantity").attr("max", currentStock);
             
             // Calculate remaining stock when quantity changes
             updateRemainingStock();
         } else {
-            $('#unit-display').text('units');
-            $('#item-info').html(`
-                <div class="text-muted text-center py-3">
-                    <i class="fas fa-box fa-2x mb-2"></i>
-                    <p class="mb-0">Select an item to view details</p>
-                </div>
-            `);
-            $('#remaining-stock').text('Select item first');
-            $('#quantity').removeAttr('max');
-            $('#warning-card').addClass('d-none');
+            $("#unit-display").text("units");
+            $("#item-info").html(
+                "<div class=\"text-muted text-center py-3\">" +
+                    "<i class=\"fas fa-box fa-2x mb-2\"></i>" +
+                    "<p class=\"mb-0\">Select an item to view details</p>" +
+                "</div>"
+            );
+            $("#remaining-stock").text("Select item first");
+            $("#quantity").removeAttr("max");
+            $("#warning-card").addClass("d-none");
         }
     });
     
     // Update remaining stock when quantity changes
-    $('#quantity').on('input', updateRemainingStock);
+    $("#quantity").on("input", updateRemainingStock);
     
     function updateRemainingStock() {
-        var selectedOption = $('#item_id').find('option:selected');
-        var currentStock = selectedOption.data('current');
-        var threshold = selectedOption.data('threshold');
-        var quantity = parseInt($('#quantity').val()) || 0;
-        var unit = selectedOption.data('unit') || 'units';
+        var selectedOption = $("#item_id").find("option:selected");
+        var currentStock = selectedOption.data("current");
+        var threshold = selectedOption.data("threshold");
+        var quantity = parseInt($("#quantity").val()) || 0;
+        var unit = selectedOption.data("unit") || "units";
         
         if (currentStock !== undefined) {
             var remainingStock = currentStock - quantity;
-            var submitBtn = $('#submit-btn');
-            var warningCard = $('#warning-card');
-            var stockWarning = $('#stock-warning');
+            var submitBtn = $("#submit-btn");
+            var warningCard = $("#warning-card");
+            var stockWarning = $("#stock-warning");
             
             // Reset warnings
-            stockWarning.text('');
-            warningCard.addClass('d-none');
-            submitBtn.prop('disabled', false);
+            stockWarning.text("");
+            warningCard.addClass("d-none");
+            submitBtn.prop("disabled", false);
             
             if (quantity > currentStock) {
                 // Insufficient stock
-                $('#remaining-stock').html(`
-                    <span class="text-danger">${remainingStock} ${unit}</span>
-                    <small class="text-danger d-block">Insufficient stock!</small>
-                `);
-                stockWarning.html('<span class="text-danger">Insufficient stock available!</span>');
-                submitBtn.prop('disabled', true);
+                $("#remaining-stock").html(
+                    "<span class=\"text-danger\">" + remainingStock + " " + unit + "</span>" +
+                    "<small class=\"text-danger d-block\">Insufficient stock!</small>"
+                );
+                stockWarning.html("<span class=\"text-danger\">Insufficient stock available!</span>");
+                submitBtn.prop("disabled", true);
                 
             } else if (remainingStock <= threshold && remainingStock > 0) {
                 // Will result in low stock
-                $('#remaining-stock').html(`
-                    <span class="text-warning">${remainingStock.toLocaleString()} ${unit}</span>
-                    <small class="text-warning d-block">Low stock warning</small>
-                `);
-                warningCard.removeClass('d-none');
-                $('#warning-message').html(`
-                    <p class="mb-2">This action will result in low stock levels:</p>
-                    <ul class="mb-0">
-                        <li>Current: ${currentStock.toLocaleString()} ${unit}</li>
-                        <li>After usage: ${remainingStock.toLocaleString()} ${unit}</li>
-                        <li>Threshold: ${threshold.toLocaleString()} ${unit}</li>
-                    </ul>
-                `);
+                $("#remaining-stock").html(
+                    "<span class=\"text-warning\">" + remainingStock.toLocaleString() + " " + unit + "</span>" +
+                    "<small class=\"text-warning d-block\">Low stock warning</small>"
+                );
+                warningCard.removeClass("d-none");
+                $("#warning-message").html(
+                    "<p class=\"mb-2\">This action will result in low stock levels:</p>" +
+                    "<ul class=\"mb-0\">" +
+                        "<li>Current: " + currentStock.toLocaleString() + " " + unit + "</li>" +
+                        "<li>After usage: " + remainingStock.toLocaleString() + " " + unit + "</li>" +
+                        "<li>Threshold: " + threshold.toLocaleString() + " " + unit + "</li>" +
+                    "</ul>"
+                );
                 
             } else if (remainingStock <= 0) {
                 // Will result in out of stock
-                $('#remaining-stock').html(`
-                    <span class="text-danger">${remainingStock.toLocaleString()} ${unit}</span>
-                    <small class="text-danger d-block">Out of stock</small>
-                `);
-                warningCard.removeClass('d-none');
-                $('#warning-message').html(`
-                    <p class="mb-2 text-danger">This action will result in out of stock:</p>
-                    <ul class="mb-0">
-                        <li>Current: ${currentStock.toLocaleString()} ${unit}</li>
-                        <li>After usage: ${remainingStock.toLocaleString()} ${unit}</li>
-                    </ul>
-                    <p class="mt-2 mb-0"><strong>Please ensure you have enough stock before proceeding.</strong></p>
-                `);
+                $("#remaining-stock").html(
+                    "<span class=\"text-danger\">" + remainingStock.toLocaleString() + " " + unit + "</span>" +
+                    "<small class=\"text-danger d-block\">Out of stock</small>"
+                );
+                warningCard.removeClass("d-none");
+                $("#warning-message").html(
+                    "<p class=\"mb-2 text-danger\">This action will result in out of stock:</p>" +
+                    "<ul class=\"mb-0\">" +
+                        "<li>Current: " + currentStock.toLocaleString() + " " + unit + "</li>" +
+                        "<li>After usage: " + remainingStock.toLocaleString() + " " + unit + "</li>" +
+                    "</ul>" +
+                    "<p class=\"mt-2 mb-0\"><strong>Please ensure you have enough stock before proceeding.</strong></p>"
+                );
                 
             } else {
                 // Normal stock level
-                $('#remaining-stock').html(`
-                    <span class="text-success">${remainingStock.toLocaleString()} ${unit}</span>
-                    <small class="text-muted d-block">(-${quantity.toLocaleString()})</small>
-                `);
+                $("#remaining-stock").html(
+                    "<span class=\"text-success\">" + remainingStock.toLocaleString() + " " + unit + "</span>" +
+                    "<small class=\"text-muted d-block\">(-" + quantity.toLocaleString() + ")</small>"
+                );
             }
+        } else {
+            $("#remaining-stock").text("Select item first");
         }
     }
-    
+    ' . 
+    ($preSelectedItem ? '
     // Pre-select item if provided in URL
-    <?php if ($preSelectedItem): ?>
-    $('#item_id').val('<?php echo $preSelectedItem; ?>').trigger('change');
-    <?php endif; ?>
+    setTimeout(function() {
+        $("#item_id").val("' . $preSelectedItem . '").trigger("change");
+    }, 300);
+    ' : '') . '
 });
-</script>
+';
+?>
 
 <?php include_once '../includes/footer.php'; ?>

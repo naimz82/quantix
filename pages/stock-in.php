@@ -238,7 +238,7 @@ include_once '../includes/header.php';
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-hover">
+                    <table class="table table-sm table-hover table-log">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -283,74 +283,93 @@ include_once '../includes/header.php';
 </div>
 <?php endif; ?>
 
-<script>
+<?php 
+// Custom JavaScript to run after jQuery is loaded
+$customScript = '
 $(document).ready(function() {
     // Update item information when item is selected
-    $('#item_id').on('change', function() {
-        var selectedOption = $(this).find('option:selected');
+    $("#item_id").on("change", function() {
+        var selectedOption = $(this).find("option:selected");
         var itemId = $(this).val();
         
         if (itemId) {
-            var unit = selectedOption.data('unit');
-            var currentStock = selectedOption.data('current');
-            var itemName = selectedOption.text().split(' - Current:')[0];
+            var unit = selectedOption.data("unit");
+            var currentStock = selectedOption.data("current");
+            var itemName = selectedOption.text().split(" - Current:")[0];
             
             // Update unit display
-            $('#unit-display').text(unit);
+            $("#unit-display").text(unit);
             
             // Update item info panel
-            $('#item-info').html(`
-                <div class="text-start">
-                    <h6 class="mb-2">${itemName}</h6>
-                    <p class="mb-1"><strong>Current Stock:</strong> ${currentStock.toLocaleString()} ${unit}</p>
-                    <p class="mb-1"><strong>Unit:</strong> ${unit}</p>
-                </div>
-            `);
+            $("#item-info").html(
+                "<div class=\"text-start\">" +
+                    "<h6 class=\"mb-2\">" + itemName + "</h6>" +
+                    "<p class=\"mb-1\"><strong>Current Stock:</strong> " + currentStock.toLocaleString() + " " + unit + "</p>" +
+                    "<p class=\"mb-1\"><strong>Unit:</strong> " + unit + "</p>" +
+                "</div>"
+            );
             
             // Calculate new stock level when quantity changes
             updateNewStockLevel();
         } else {
-            $('#unit-display').text('units');
-            $('#item-info').html(`
-                <div class="text-muted text-center py-3">
-                    <i class="fas fa-box fa-2x mb-2"></i>
-                    <p class="mb-0">Select an item to view details</p>
-                </div>
-            `);
-            $('#new-stock').text('Select item first');
+            $("#unit-display").text("units");
+            $("#item-info").html(
+                "<div class=\"text-muted text-center py-3\">" +
+                    "<i class=\"fas fa-box fa-2x mb-2\"></i>" +
+                    "<p class=\"mb-0\">Select an item to view details</p>" +
+                "</div>"
+            );
+            $("#new-stock").text("Select item first");
         }
     });
     
     // Update new stock level when quantity changes
-    $('#quantity').on('input', updateNewStockLevel);
+    $("#quantity").on("input", updateNewStockLevel);
     
     function updateNewStockLevel() {
-        var selectedOption = $('#item_id').find('option:selected');
-        var currentStock = selectedOption.data('current');
-        var quantity = parseInt($('#quantity').val()) || 0;
-        var unit = selectedOption.data('unit') || 'units';
+        var selectedOption = $("#item_id").find("option:selected");
+        var currentStock = selectedOption.data("current");
+        var quantity = parseInt($("#quantity").val()) || 0;
+        var unit = selectedOption.data("unit") || "units";
         
-        if (currentStock !== undefined && quantity > 0) {
-            var newStock = currentStock + quantity;
-            $('#new-stock').html(`
-                <span class="text-success">${newStock.toLocaleString()} ${unit}</span>
-                <small class="text-muted d-block">(+${quantity.toLocaleString()})</small>
-            `);
-        } else if (currentStock !== undefined) {
-            $('#new-stock').text(`${currentStock.toLocaleString()} ${unit}`);
+        if (currentStock !== undefined) {
+            if (quantity > 0) {
+                var newStock = currentStock + quantity;
+                $("#new-stock").html(
+                    "<span class=\"text-success\">" + newStock.toLocaleString() + " " + unit + "</span>" +
+                    "<small class=\"text-muted d-block\">(+" + quantity.toLocaleString() + ")</small>"
+                );
+            } else {
+                // Show current stock even when no quantity is entered
+                $("#new-stock").html(
+                    "<span class=\"text-muted\">" + currentStock.toLocaleString() + " " + unit + "</span>" +
+                    "<small class=\"text-muted d-block\">Enter quantity to see new level</small>"
+                );
+            }
+        } else {
+            $("#new-stock").text("Select item first");
         }
     }
-    
+    ' . 
+    ($preSelectedItem ? '
     // Pre-select item if provided in URL
-    <?php if ($preSelectedItem): ?>
-    $('#item_id').val('<?php echo $preSelectedItem; ?>').trigger('change');
-    <?php endif; ?>
+    setTimeout(function() {
+        $("#item_id").val("' . $preSelectedItem . '").trigger("change");
+    }, 300);
+    ' : '') . 
+    ($preSelectedSupplier ? '
+    // Pre-select supplier if provided in URL  
+    setTimeout(function() {
+        $("#supplier_id").val("' . $preSelectedSupplier . '").trigger("change");
+    }, 300);
+    ' : '') . '
     
-    // Pre-select supplier if provided in URL
-    <?php if ($preSelectedSupplier): ?>
-    $('#supplier_id').val('<?php echo $preSelectedSupplier; ?>').trigger('change');
-    <?php endif; ?>
+    // Also trigger change on page load if item is already selected
+    if ($("#item_id").val()) {
+        $("#item_id").trigger("change");
+    }
 });
-</script>
+';
+?>
 
 <?php include_once '../includes/footer.php'; ?>

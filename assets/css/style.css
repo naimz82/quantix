@@ -27,11 +27,13 @@ body {
     background-color: var(--light-color);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--dark-color);
+    font-size: 0.875rem; /* Reduced from default 16px to 14px */
+    line-height: 1.5;
 }
 
 .navbar-brand {
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Reduced from 1.5rem */
     color: var(--light-color);
 }
 
@@ -185,6 +187,7 @@ body {
 .dashboard-card .display-6 {
     font-weight: 700;
     color: var(--dark-color);
+    font-size: 2.25rem; /* Slightly smaller than default display-6 */
 }
 
 /* Specialized card variants */
@@ -245,6 +248,7 @@ body {
 .table {
     background-color: white;
     color: var(--dark-color);
+    font-size: 0.8125rem; /* Smaller font for data tables */
 }
 
 .table th {
@@ -252,17 +256,57 @@ body {
     background-color: rgba(107, 114, 128, 0.08);
     border-color: rgba(107, 114, 128, 0.15);
     color: var(--dark-color);
+    font-size: 0.75rem; /* Even smaller for headers */
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    padding: 0.5rem 0.75rem; /* Tighter padding */
+}
+
+.table td {
+    padding: 0.5rem 0.75rem; /* Consistent tighter padding */
+    vertical-align: middle;
+}
+
+/* Compact table variant for logs/lists */
+.table-sm {
+    font-size: 0.75rem;
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 0.375rem 0.5rem;
+}
+
+/* Log/history tables - extra compact */
+.table-log {
+    font-size: 0.6875rem;
+}
+
+.table-log th {
+    font-size: 0.625rem;
+    padding: 0.375rem 0.5rem;
+}
+
+.table-log td {
+    padding: 0.375rem 0.5rem;
 }
 
 /* Buttons */
 .btn {
     border-radius: 0.375rem;
     font-weight: 500;
+    font-size: 0.8125rem; /* Slightly smaller default button text */
+    padding: 0.5rem 1rem;
 }
 
 .btn-sm {
-    font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem; /* Smaller for sm buttons */
+    padding: 0.25rem 0.75rem;
+}
+
+.btn-xs {
+    font-size: 0.6875rem;
+    padding: 0.1875rem 0.5rem;
 }
 
 /* Forms */
@@ -305,16 +349,29 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    body {
+        font-size: 0.8125rem; /* Even smaller on mobile */
+    }
+    
     .navbar-brand {
-        font-size: 1.25rem;
+        font-size: 1.125rem; /* Smaller navbar brand on mobile */
     }
     
     .dashboard-card .display-6 {
-        font-size: 2rem;
+        font-size: 1.75rem; /* Smaller dashboard numbers on mobile */
     }
     
     .table-responsive {
         border-radius: 0.375rem;
+    }
+    
+    .table {
+        font-size: 0.75rem; /* Smaller table text on mobile */
+    }
+    
+    .btn {
+        font-size: 0.75rem; /* Smaller buttons on mobile */
+        padding: 0.375rem 0.875rem;
     }
 }
 
@@ -381,4 +438,29 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* Typography refinements */
+h1 { font-size: 1.75rem; font-weight: 600; } /* Reduced from default */
+h2 { font-size: 1.5rem; font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+h4 { font-size: 1.1rem; font-weight: 600; }
+h5 { font-size: 1rem; font-weight: 600; }
+h6 { font-size: 0.875rem; font-weight: 600; }
+
+/* Smaller text variants */
+.text-sm { font-size: 0.75rem; }
+.text-xs { font-size: 0.6875rem; }
+
+/* Form labels */
+.form-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-bottom: 0.375rem;
+}
+
+/* Card headers */
+.card-header h5, .card-header h6 {
+    font-size: 0.9375rem;
+    margin-bottom: 0;
 }
