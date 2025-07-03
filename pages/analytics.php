@@ -50,7 +50,7 @@ function getInventoryValue() {
 }
 
 function getMovementTrends($dateFrom, $dateTo) {
-    return fetchAll("
+    $sql = "
         SELECT 
             DATE(si.date) as date,
             'Stock In' as type,
@@ -72,7 +72,9 @@ function getMovementTrends($dateFrom, $dateTo) {
         GROUP BY DATE(so.date)
         
         ORDER BY date DESC
-    ", [$dateFrom, $dateTo, $dateFrom, $dateTo]);
+    ";
+    
+    return fetchAll($sql, [$dateFrom, $dateTo, $dateFrom, $dateTo]);
 }
 
 function getCategoryPerformance() {
@@ -266,6 +268,15 @@ include_once '../includes/header.php';
                 </button>
             </div>
         </form>
+        
+        <!-- Filter Summary -->
+        <div class="mt-3 text-muted">
+            <small>
+                <i class="fas fa-info-circle me-1"></i>
+                Showing data from <?php echo date('M d, Y', strtotime($dateFrom)); ?> to <?php echo date('M d, Y', strtotime($dateTo)); ?>
+                (<?php echo count($analytics['movement_trends']); ?> movement records found)
+            </small>
+        </div>
     </div>
 </div>
 
@@ -349,7 +360,16 @@ include_once '../includes/header.php';
                 <h6 class="mb-0"><i class="fas fa-chart-area me-2"></i>Stock Movement Trends</h6>
             </div>
             <div class="card-body">
-                <canvas id="movementTrendsChart" width="400" height="200"></canvas>
+                <?php if (empty($analytics['movement_trends'])): ?>
+                    <div class="text-center py-5">
+                        <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
+                        <h6 class="text-muted">No Movement Data</h6>
+                        <p class="text-muted mb-0">No stock movements found for the selected date range.</p>
+                        <small class="text-muted">Try adjusting the date range or add some stock movements.</small>
+                    </div>
+                <?php else: ?>
+                    <canvas id="movementTrendsChart" width="400" height="200"></canvas>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -571,44 +591,105 @@ include_once '../includes/header.php';
 
 <!-- Chart Scripts -->
 <script>
-// Movement Trends Chart
-const movementData = <?php echo json_encode($analytics['movement_trends']); ?>;
-const dates = [...new Set(movementData.map(d => d.date))].sort();
-const stockInData = dates.map(date => {
-    const record = movementData.find(d => d.date === date && d.type === 'Stock In');
-    return record ? record.quantity : 0;
-});
-const stockOutData = dates.map(date => {
-    const record = movementData.find(d => d.date === date && d.type === 'Stock Out');
-    return record ? record.quantity : 0;
-});
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if Chart.js is loaded
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js is not loaded');
+        document.getElementById('movementTrendsChart').innerHTML = '<p class="text-center text-danger">Chart library failed to load</p>';
+        return;
+    }
+    
+    // Movement Trends Chart
+    const movementData = <?php echo json_encode($analytics['movement_trends']); ?>;
+    console.log('Movement data:', movementData);
 
-new Chart(document.getElementById('movementTrendsChart'), {
-    type: 'line',
-    data: {
-        labels: dates.map(date => moment(date).format('MMM DD')),
-        datasets: [{
-            label: 'Stock In',
-            data: stockInData,
-            borderColor: '#28a745',
-            backgroundColor: 'rgba(40, 167, 69, 0.1)',
-            fill: true
-        }, {
-            label: 'Stock Out',
-            data: stockOutData,
-            borderColor: '#dc3545',
-            backgroundColor: 'rgba(220, 53, 69, 0.1)',
-            fill: true
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+    // Check if we have any data
+    if (!movementData || movementData.length === 0) {
+        console.log('No movement data available');
+        const chartContainer = document.getElementById('movementTrendsChart').parentElement;
+        chartContainer.innerHTML = '<p class="text-center text-muted">No movement data available for the selected date range.</p>';
+        return;
+    }
+    
+    try {
+        const dates = [...new Set(movementData.map(d => d.date))].sort();
+        console.log('Dates:', dates);
+        
+        const stockInData = dates.map(date => {
+            const record = movementData.find(d => d.date === date && d.type === 'Stock In');
+            return record ? parseInt(record.quantity) : 0;
+        });
+        const stockOutData = dates.map(date => {
+            const record = movementData.find(d => d.date === date && d.type === 'Stock Out');
+            return record ? parseInt(record.quantity) : 0;
+        });
+
+        console.log('Stock In Data:', stockInData);
+        console.log('Stock Out Data:', stockOutData);
+
+        const chartCanvas = document.getElementById('movementTrendsChart');
+        if (!chartCanvas) {
+            console.error('Chart canvas not found');
+            return;
         }
+
+        new Chart(chartCanvas, {
+            type: 'line',
+            data: {
+                labels: dates.map(date => moment(date).format('MMM DD')),
+                datasets: [{
+                    label: 'Stock In',
+                    data: stockInData,
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }, {
+                    label: 'Stock Out',
+                    data: stockOutData,
+                    borderColor: '#dc3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Stock Movement Trends'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantity'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    }
+                }
+            }
+        });
+        
+        console.log('Chart created successfully');
+        
+    } catch (error) {
+        console.error('Error creating chart:', error);
+        const chartContainer = document.getElementById('movementTrendsChart').parentElement;
+        chartContainer.innerHTML = '<p class="text-center text-danger">Error creating chart: ' + error.message + '</p>';
     }
 });
 
