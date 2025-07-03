@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step == 2) {
                 <div class="card install-card border-0">
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <i class="fas fa-boxes brand-logo"></i>
+                            <img src="assets/img/quantix-logo.png" alt="<?php echo APP_NAME; ?>" class="brand-logo mb-3" style="max-height: 80px;">
                             <h2 class="fw-bold text-dark"><?php echo APP_NAME; ?></h2>
                             <p class="text-muted">Installation Wizard</p>
                         </div>

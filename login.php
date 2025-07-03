@@ -74,7 +74,7 @@ $pageTitle = 'Login';
                 <div class="card login-card border-0">
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <i class="fas fa-boxes brand-logo"></i>
+                            <img src="<?php echo BASE_URL; ?>/assets/img/quantix-logo.png" alt="<?php echo APP_NAME; ?>" class="brand-logo mb-3" style="max-height: 80px;">
                             <h2 class="fw-bold text-dark"><?php echo APP_NAME; ?></h2>
                             <p class="text-muted">Inventory Management System</p>
                         </div>

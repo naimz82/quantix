@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?php echo BASE_URL; ?>/dashboard.php">
-                <i class="fas fa-boxes me-2"></i><?php echo APP_NAME; ?>
+                <img src="<?php echo BASE_URL; ?>/assets/img/quantix-logo.png" alt="<?php echo APP_NAME; ?>" height="32" class="me-2"><?php echo APP_NAME; ?>
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
