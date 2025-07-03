@@ -138,8 +138,12 @@ quantix/
 ├── assets/
 │   ├── css/
 │   │   └── style.css          # Custom styles
-│   └── js/
+│   ├── js/
 │       └── app.js             # Main JavaScript file
+│   ├── img/
+│       └── quantix-logo.png   # Logo image file
+│   └── favicon/
+│       └── [favicon files]    # Favicon files for the system
 ├── includes/
 │   ├── config.php             # Configuration settings
 │   ├── database.php           # Database connection and helpers
@@ -167,7 +171,6 @@ quantix/
 ├── dashboard.php             # Main dashboard
 ├── install.php               # Installation wizard
 ├── dbschema.sql              # Database schema
-├── FEATURES.md               # Feature specifications
 └── README.md                 # This file
 ```
 

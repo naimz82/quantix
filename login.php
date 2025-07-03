@@ -34,6 +34,13 @@ $pageTitle = 'Login';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle . ' - ' . APP_NAME; ?></title>
+
+    <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Quantix" />
+    <link rel="manifest" href="assets/favicon/site.webmanifest" />
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -115,11 +122,6 @@ $pageTitle = 'Login';
                             </div>
                         </form>
                         
-                        <div class="text-center mt-4">
-                            <small class="text-muted">
-                                Demo credentials: admin@example.com / password123
-                            </small>
-                        </div>
                     </div>
                 </div>
                 
