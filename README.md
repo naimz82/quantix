@@ -1,6 +1,17 @@
-# Quantix - Inventory Management System
+# Quantix - Invent## 📑 Table of Contents
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+- [✨ Key Features](#-key-features)
+- [📸 Screenshots](#-screenshots)
+- [🚀 Quick Start](#-quick-start)  
+- [📋 Requirements](#-requirements)nagement System📱 **Responsive** - Works perfectly on desktop,---
+
+## 🚀 Quick Start
+
+```bashet, and mobile
+
+## 📸 **Screenshots**
+
+Get a visual overview of Quantix's clean, modern interface and powerful features:License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D7.4-blue.svg)](https://php.net)
 [![MySQL Version](https://img.shields.io/badge/MySQL-%3E%3D5.7-orange.svg)](https://mysql.com)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)](https://getbootstrap.com)
