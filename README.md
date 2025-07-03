@@ -43,41 +43,44 @@ Need Quantix but don't have an IT team? Jump to the [Professional Services](#-pr
 
 Get a visual overview of Quantix's clean, modern interface and powerful features:
 
-### Login & Authentication
-<div align="center">
-<img src="assets/img/screenshots/login.png" alt="Quantix Login Screen" width="600">
+<table>
+<tr>
+<td width="50%" align="center">
+<h4>🔐 Login & Authentication</h4>
+<img src="assets/img/screenshots/login.png" alt="Quantix Login Screen" width="400">
 <br><em>Secure login interface with professional branding</em>
-</div>
-
-### Dashboard Overview
-<div align="center">
-<img src="assets/img/screenshots/dashboard.png" alt="Quantix Dashboard" width="600">
-<br><em>Real-time inventory overview with charts, metrics, and quick actions</em>
-</div>
-
-### Items Management
-<div align="center">
-<img src="assets/img/screenshots/items.png" alt="Items Management" width="600">
-<br><em>Comprehensive item management with advanced filtering and search</em>
-</div>
-
-### Stock Operations
-<div align="center">
-<img src="assets/img/screenshots/stock-in-entries.png" alt="Stock In Management" width="600">
-<br><em>Easy stock intake recording with supplier tracking and cost management</em>
-</div>
-
-### Analytics & Reporting
-<div align="center">
-<img src="assets/img/screenshots/analytics-and-reports.png" alt="Analytics and Reports" width="600">
-<br><em>Advanced analytics with interactive charts and performance insights</em>
-</div>
-
-### Low Stock Alerts
-<div align="center">
-<img src="assets/img/screenshots/low-stock-report.png" alt="Low Stock Report" width="600">
+</td>
+<td width="50%" align="center">
+<h4>📊 Dashboard Overview</h4>
+<img src="assets/img/screenshots/dashboard.png" alt="Quantix Dashboard" width="400">
+<br><em>Real-time inventory overview with charts and metrics</em>
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+<h4>📦 Items Management</h4>
+<img src="assets/img/screenshots/items.png" alt="Items Management" width="400">
+<br><em>Comprehensive item management with advanced filtering</em>
+</td>
+<td width="50%" align="center">
+<h4>📥 Stock Operations</h4>
+<img src="assets/img/screenshots/stock-in-entries.png" alt="Stock In Management" width="400">
+<br><em>Easy stock intake recording with supplier tracking</em>
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+<h4>📈 Analytics & Reporting</h4>
+<img src="assets/img/screenshots/analytics-and-reports.png" alt="Analytics and Reports" width="400">
+<br><em>Advanced analytics with interactive charts and insights</em>
+</td>
+<td width="50%" align="center">
+<h4>⚠️ Low Stock Alerts</h4>
+<img src="assets/img/screenshots/low-stock-report.png" alt="Low Stock Report" width="400">
 <br><em>Automated low stock detection with actionable insights</em>
-</div>
+</td>
+</tr>
+</table>
 
 ---
 
