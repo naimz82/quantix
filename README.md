@@ -333,8 +333,8 @@ Ready to get Quantix professionally deployed for your organization?
 - 🌐 **Website:** [amz.com.my](https://amz.com.my)
 
 **Typical Deployment Timeline:** 1-3 business days  
-**Pricing:** Starting from $XXX for basic setup  
-**Includes:** Installation, configuration, basic training, and 30-day support
+**Pricing:** Starting from $499 for basic setup  
+**Includes:** Installation, configuration, online training, and 30-day support
 
 ---
 
